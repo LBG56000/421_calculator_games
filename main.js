@@ -7,6 +7,7 @@ addEventListener('DOMContentLoaded', () => {
   const secondDie = document.getElementById(dies[1])
   const thirdDie = document.getElementById(dies[2])
   const resultText = document.getElementById('result')
+  const resetButton = document.getElementById('reset-button')
 
 
   firstDie.addEventListener('input', (updateValue) => {
@@ -21,11 +22,13 @@ addEventListener('DOMContentLoaded', () => {
     setResults(2, updateValue)
   })
 
+  resetButton.addEventListener('click', () => resetFields())
+
   function setResults(index, updateValue) {
     const value = Number(updateValue.target.value)
-    if (!Number.isNaN(value) && value < 7) {
+    if (!Number.isNaN(value)) {
       diceResults[index] = value
-      if (diceResults.length === 3) {
+      if (diceResults.length === 3 && diceResults.every(diceResult => diceResult < 7)) {
         resultText.textContent = getResult()
       }
     }
@@ -115,5 +118,12 @@ addEventListener('DOMContentLoaded', () => {
     const triple = Object.entries(count).find(([_, count]) => count >= 2)
 
     return triple ? Number(triple[0]) : null
+  }
+
+  function resetFields() {
+    firstDie.value = ''
+    secondDie.value = ''
+    thirdDie.value = ''
+    resultText.textContent = 0
   }
 })
