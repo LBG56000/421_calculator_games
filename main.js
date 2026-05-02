@@ -26,11 +26,15 @@ addEventListener('DOMContentLoaded', () => {
 
   function setResults(index, updateValue) {
     const value = Number(updateValue.target.value)
-    if (!Number.isNaN(value)) {
+    console.log(Number.isInteger(value))
+    if (!Number.isNaN(value) && Number.isInteger(value) && Number.isInteger(value)) {
+      console.log(Number.isInteger(value))
       diceResults[index] = value
       if (diceResults.length === 3 && diceResults.every(diceResult => diceResult < 7)) {
         resultText.textContent = getResult()
       }
+    } else {
+      resultText.textContent = 0
     }
   }
 
